@@ -11,8 +11,14 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-//app.MapPost("/create",
-    //(Movie movie, IMovieService service) => Create(movie, service));
+app.MapPost("/create",
+    (Movie movie, IMovieService service) => Create(movie, service));
+
+IResult Create(Movie movie, IMovieService service)
+{
+    var result = service.Create(movie);
+    return Results.Ok(result);
+}
 
 app.Run();
 
