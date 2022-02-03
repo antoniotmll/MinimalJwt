@@ -23,6 +23,9 @@ app.MapGet("/list",
 app.MapPut("/update",
     (Movie newMovie, IMovieService service) => Update(newMovie, service));
 
+app.MapDelete("/delete",
+    (int id, IMovieService service) => Delete(id, service));
+
 IResult Create(Movie movie, IMovieService service)
 {
     var result = service.Create(movie);
