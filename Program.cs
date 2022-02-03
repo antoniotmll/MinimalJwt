@@ -3,11 +3,15 @@ using MinimalJwt.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<IMovieService, MovieService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 
 var app = builder.Build();
+
+app.UseSwagger();
 
 app.MapGet("/", () => "Hello World!");
 
@@ -66,6 +70,7 @@ IResult Delete(int id, IMovieService service)
     return Results.Ok(result); 
 }
 
+app.UseSwaggerUI();
 
 app.Run();
 
