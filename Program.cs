@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using MinimalJwt.Models;
 using MinimalJwt.Services;
@@ -42,15 +43,18 @@ app.MapPost("/login",
     (UserLogin user, IUserService service) => Login(user, service));
 
 app.MapPost("/create",
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
     (Movie movie, IMovieService service) => Create(movie, service));
 
 app.MapGet("/get",
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Standard, Administrator")]
     (int id, IMovieService service) => Get(id, service));
 
 app.MapGet("/list",
     (IMovieService service) => List(service));
 
 app.MapPut("/update",
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
     (Movie newMovie, IMovieService service) => Update(newMovie, service));
 
 app.MapDelete("/delete",
