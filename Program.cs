@@ -39,7 +39,7 @@ app.UseAuthentication();
 app.MapGet("/", () => "Hello World!");
 
 app.MapPost("/login",
-    (UserLogin user, IUserService service) => Login(movie, service));
+    (UserLogin user, IUserService service) => Login(user, service));
 
 app.MapPost("/create",
     (Movie movie, IMovieService service) => Create(movie, service));
