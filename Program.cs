@@ -88,6 +88,8 @@ app.MapDelete("/delete",
 
 IResult Login(UserLogin user, IUserService service)
 {
+    var tokenString = "";
+
     if (!string.IsNullOrEmpty(user.Username) && !string.IsNullOrEmpty(user.Password))
     {
         var loggedInUser = service.Get(user);
@@ -114,10 +116,9 @@ IResult Login(UserLogin user, IUserService service)
                 SecurityAlgorithms.HmacSha256)
             );
 
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-        return Results.Ok(tokenString);
+        tokenString = new JwtSecurityTokenHandler().WriteToken(token);
     }
+    return Results.Ok(tokenString);
 }
 
 IResult Create(Movie movie, IMovieService service)
