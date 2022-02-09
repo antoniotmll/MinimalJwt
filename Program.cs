@@ -91,6 +91,7 @@ app.MapPut("/update",
     .Accepts<Movie>("application/json");
 
 app.MapDelete("/delete",
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
     (int id, IMovieService service) => Delete(id, service));
 
 IResult Login(UserLogin user, IUserService service)
